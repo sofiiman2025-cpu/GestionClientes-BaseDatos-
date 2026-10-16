@@ -64,10 +64,12 @@ namespace GestionClientes_archivoCSV_
                 //Adaptamos los datos de toda la tabla y se los cargamos a DS
                 adaptador = new OleDbDataAdapter(comando);
                 DataSet DS = new DataSet();
-                adaptador.Fill(DS);
+                adaptador.Fill(DS, Tabla);
 
                 //Mostramos los datos en la grilla (cargamos la grilla)
-                combo.DataSource = DS.Tables[0];
+                combo.DataSource = DS.Tables[Tabla];
+                combo.DisplayMember = "Nombre";
+                combo.ValueMember = "IdCiudad";
 
 
                 conexion.Close();
@@ -77,5 +79,6 @@ namespace GestionClientes_archivoCSV_
                 MessageBox.Show(e.ToString());
             }
         }
+       
     }
 }

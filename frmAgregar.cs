@@ -16,5 +16,26 @@ namespace GestionClientes_archivoCSV_
         {
             InitializeComponent();
         }
+
+        private void frmAgregar_Load(object sender, EventArgs e)
+        {
+            clsCiudad cls = new clsCiudad();
+            cls.Listar(cmbCiudad);
+        }
+
+        private void btnCargar_Click(object sender, EventArgs e)
+        {
+            clsClientes clase = new clsClientes();
+            clase.nombre = txtNombre.Text;
+            clase.limite = Convert.ToDecimal(txtLimite.Text);
+            clase.idCiudad = Convert.ToInt32(cmbCiudad.SelectedValue);
+            clase.Agregar();
+
+            MessageBox.Show("Cliente Agregado Correctamente");
+
+            txtNombre.Text = "";
+            txtLimite.Text = "";
+            cmbCiudad.SelectedIndex = 0;
+        }
     }
 }

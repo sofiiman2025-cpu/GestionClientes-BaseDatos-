@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.OleDb;
 using System.Windows.Forms;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace GestionClientes_archivoCSV_
 {
@@ -36,6 +37,29 @@ namespace GestionClientes_archivoCSV_
         public Decimal PromedioDeuda
         {
             get { return deuda / cantidad; }
+            
+        }
+        public String nombre
+        {
+            get { return nombre; }
+            set { nombre = value; }
+
+        }
+        public Decimal limite
+        {
+            get { return limite; }
+            set { limite = value; }
+
+        }
+        public Int32 idCiudad
+        {
+            get { return idCiudad; }
+            set { idCiudad = value; }
+        }
+        public Int32 idCliente
+        {
+            get { return idCliente; }
+            set { idCliente = value; }
         }
 
 
@@ -162,6 +186,42 @@ namespace GestionClientes_archivoCSV_
                 MessageBox.Show(e.ToString());
             }
         }
+        public void Agregar()
+        {
+            try
+            {
+                //Hacemos la conexión a la Base de Datos
+                conexion.ConnectionString = CadenaConexion;
+                conexion.Open();
 
+                //Ejecutamos la conexión, le decimos que timpo de tabla usamos y cual tabla usamos
+                comando.Connection = conexion;
+                comando.CommandType = CommandType.TableDirect;
+                comando.CommandText = Tabla;
+
+                //Adaptamos los datos de toda la tabla y se los cargamos a DS
+                adaptador = new OleDbDataAdapter(comando);
+                DataSet DS = new DataSet();
+                adaptador.Fill(DS);
+
+                DataTable tabla = DS.Tables[Tabla];
+                DataRow fila = tabla.NewRow();
+
+                fila["Nombre"] = nombre;
+                fila["Deuda"] = 0;
+                fila["Limite"] = limite;
+                fila["idCiudad"] = idCiudad;
+
+                tabla.Rows.Add(fila);
+                OleDbCommandBuilder constructor = new OleDbCommandBuilder(adaptador);
+                adaptador.Update(DS, Tabla);
+
+                conexion.Close();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+        }
     }
 }

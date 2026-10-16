@@ -19,7 +19,9 @@ namespace GestionClientes_archivoCSV_
 
         private void agregarNuevosClientesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-  
+            frmAgregar formulario = new frmAgregar();
+            formulario.Show();
+
         }
 
         private void listadoDeTodosLosClientesToolStripMenuItem_Click(object sender, EventArgs e)
