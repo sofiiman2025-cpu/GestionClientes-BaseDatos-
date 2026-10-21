@@ -24,6 +24,10 @@ namespace GestionClientes_archivoCSV_
         //Declaro las Variables
         private Decimal deuda;
         private Int32 cantidad;
+        private string _nombre;
+        private Decimal _limite;
+        private Int32 _idCiudad;
+        private Int32 _idCliente;
 
         //Declaro las PROPIEDADES
         public Decimal TotalDeuda
@@ -36,30 +40,30 @@ namespace GestionClientes_archivoCSV_
         }
         public Decimal PromedioDeuda
         {
-            get { return deuda / cantidad; }
-            
+            get { return cantidad == 0 ? 0 : deuda / cantidad; }
+
         }
         public String nombre
         {
-            get { return nombre; }
-            set { nombre = value; }
+            get { return _nombre; }
+            set { _nombre = value; }
 
         }
         public Decimal limite
         {
-            get { return limite; }
-            set { limite = value; }
+            get { return _limite; }
+            set { _limite = value; }
 
         }
         public Int32 idCiudad
         {
-            get { return idCiudad; }
-            set { idCiudad = value; }
+            get { return _idCiudad; }
+            set { _idCiudad = value; }
         }
         public Int32 idCliente
         {
-            get { return idCliente; }
-            set { idCliente = value; }
+            get { return _idCliente; }
+            set { _idCliente = value; }
         }
 
 
@@ -68,27 +72,27 @@ namespace GestionClientes_archivoCSV_
         {
             try
             {
-            //Hacemos la conexión a la Base de Datos
-            conexion.ConnectionString = CadenaConexion;
-            conexion.Open();
+                //Hacemos la conexión a la Base de Datos
+                conexion.ConnectionString = CadenaConexion;
+                conexion.Open();
 
-            //Ejecutamos la conexión, le decimos que timpo de tabla usamos y cual tabla usamos
-            comando.Connection = conexion;
-            comando.CommandType = CommandType.TableDirect;
-            comando.CommandText = Tabla;
+                //Ejecutamos la conexión, le decimos que timpo de tabla usamos y cual tabla usamos
+                comando.Connection = conexion;
+                comando.CommandType = CommandType.TableDirect;
+                comando.CommandText = Tabla;
 
-            //Adaptamos los datos de toda la tabla y se los cargamos a DS
-            adaptador = new OleDbDataAdapter(comando);
-            DataSet DS = new DataSet();
-            adaptador.Fill(DS);
+                //Adaptamos los datos de toda la tabla y se los cargamos a DS
+                adaptador = new OleDbDataAdapter(comando);
+                DataSet DS = new DataSet();
+                adaptador.Fill(DS);
 
-            //Mostramos los datos en la grilla (cargamos la grilla)
-            Grilla.DataSource = DS.Tables[0];
+                //Mostramos los datos en la grilla (cargamos la grilla)
+                Grilla.DataSource = DS.Tables[0];
 
 
-            conexion.Close();
+                conexion.Close();
             }
-            catch(Exception e) 
+            catch (Exception e)
             {
                 MessageBox.Show(e.ToString());
             }
@@ -151,7 +155,7 @@ namespace GestionClientes_archivoCSV_
                 comando.CommandText = Tabla;
 
                 OleDbDataReader DR = comando.ExecuteReader();
-                StreamWriter AD = new StreamWriter("Reporte.csv",false,Encoding.UTF8);
+                StreamWriter AD = new StreamWriter("Reporte.csv", false, Encoding.UTF8);
                 AD.WriteLine("Listado de Clientes\n");
                 AD.WriteLine("Código;Nombre;Deuda");
 
@@ -215,6 +219,128 @@ namespace GestionClientes_archivoCSV_
                 tabla.Rows.Add(fila);
                 OleDbCommandBuilder constructor = new OleDbCommandBuilder(adaptador);
                 adaptador.Update(DS, Tabla);
+
+                conexion.Close();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+        }
+
+        public void SoloEstructura(Int32 idCliente)
+        {
+            try
+            {
+                String sql = "";
+
+                //Hacemos la conexión a la Base de Datos
+                conexion.ConnectionString = CadenaConexion;
+                conexion.Open();
+
+                //Ejecutamos la conexión, le decimos que timpo de tabla usamos y cual tabla usamos
+                comando.Connection = conexion;
+                comando.CommandType = CommandType.Text;
+                comando.CommandText = sql;
+
+
+                comando.ExecuteNonQuery();
+
+                conexion.Close();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+        }
+
+        public void Modificar(Int32 idCliente)
+        {
+            try
+            {
+                String sql = "UPDATE Lista SET [Límite] = ? WHERE idCliente = ?";
+
+                //Hacemos la conexión a la Base de Datos
+                conexion.ConnectionString = CadenaConexion;
+                conexion.Open();
+
+                //Ejecutamos la conexión, le decimos que timpo de tabla usamos y cual tabla usamos
+                comando.Connection = conexion;
+                comando.CommandType = CommandType.Text;
+                comando.CommandText = sql;
+                comando.Parameters.Clear();
+                comando.Parameters.AddWithValue("@limite", limite);
+                comando.Parameters.AddWithValue("@idCliente", idCliente);
+
+
+                comando.ExecuteNonQuery();
+
+                conexion.Close();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+        }
+        public void Buscar(Int32 idCliente)
+        {
+            try
+            {
+                String sql = "SELECT * FROM Lista WHERE idCliente = ?";
+                //Hacemos la conexión a la Base de Datos
+                conexion.ConnectionString = CadenaConexion;
+                conexion.Open();
+                //Ejecutamos la conexión, le decimos que timpo de tabla usamos y cual tabla usamos
+                comando.Connection = conexion;
+                comando.CommandType = CommandType.Text;
+                comando.CommandText = sql;
+                comando.Parameters.Clear();
+                comando.Parameters.AddWithValue("@idCliente", idCliente);
+                OleDbDataReader DR = comando.ExecuteReader();
+                if (DR.HasRows)
+                {
+                    while (DR.Read())
+                    {
+                        this.idCliente = DR.GetInt32(0);
+                        this.nombre = DR.GetString(1);
+                        this.limite = DR.GetDecimal(3);
+                        this.idCiudad = DR.GetInt32(4);
+                    }
+                }
+                else
+                {
+                    this.idCliente = 0;
+                    this.nombre = "";
+                    this.limite = 0;
+                    this.idCiudad = 0;
+                }
+                conexion.Close();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+        }
+
+        public void Eliminar(Int32 idCliente)
+        {
+            try
+            {
+                String sql = "DELETE FROM Lista WHERE idCliente = ?";
+
+                //Hacemos la conexión a la Base de Datos
+                conexion.ConnectionString = CadenaConexion;
+                conexion.Open();
+
+                //Ejecutamos la conexión, le decimos que timpo de tabla usamos y cual tabla usamos
+                comando.Connection = conexion;
+                comando.CommandType = CommandType.Text;
+                comando.CommandText = sql;
+                comando.Parameters.Clear();
+                comando.Parameters.AddWithValue("@idCliente", idCliente);
+
+
+                comando.ExecuteNonQuery();
 
                 conexion.Close();
             }
