@@ -20,7 +20,7 @@ namespace GestionClientes_archivoCSV_
         private void btnListar_Click(object sender, EventArgs e)
         {
             clsClientes objClientes = new clsClientes();
-            objClientes.ListarClientes(dgvGrilla);
+            objClientes.Listar(dgvGrilla);
         }
 
         private void btn_Reporte_Click(object sender, EventArgs e)
