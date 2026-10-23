@@ -29,9 +29,14 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btn_Reporte = new System.Windows.Forms.Button();
             this.dgvGrilla = new System.Windows.Forms.DataGridView();
             this.btnListar = new System.Windows.Forms.Button();
-            this.btn_Reporte = new System.Windows.Forms.Button();
+            this.Codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Personal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Deuda = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Limite = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvGrilla)).BeginInit();
             this.SuspendLayout();
@@ -41,34 +46,16 @@
             this.groupBox1.Controls.Add(this.btn_Reporte);
             this.groupBox1.Controls.Add(this.dgvGrilla);
             this.groupBox1.Controls.Add(this.btnListar);
-            this.groupBox1.Location = new System.Drawing.Point(13, 13);
+            this.groupBox1.Location = new System.Drawing.Point(9, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(498, 376);
+            this.groupBox1.Size = new System.Drawing.Size(694, 553);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Consulta de datos";
             // 
-            // dgvGrilla
-            // 
-            this.dgvGrilla.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvGrilla.Location = new System.Drawing.Point(7, 33);
-            this.dgvGrilla.Name = "dgvGrilla";
-            this.dgvGrilla.Size = new System.Drawing.Size(474, 253);
-            this.dgvGrilla.TabIndex = 8;
-            // 
-            // btnListar
-            // 
-            this.btnListar.Location = new System.Drawing.Point(342, 310);
-            this.btnListar.Name = "btnListar";
-            this.btnListar.Size = new System.Drawing.Size(139, 27);
-            this.btnListar.TabIndex = 7;
-            this.btnListar.Text = "Listar";
-            this.btnListar.UseVisualStyleBackColor = true;
-            this.btnListar.Click += new System.EventHandler(this.btnListar_Click);
-            // 
             // btn_Reporte
             // 
-            this.btn_Reporte.Location = new System.Drawing.Point(184, 310);
+            this.btn_Reporte.Location = new System.Drawing.Point(391, 520);
             this.btn_Reporte.Name = "btn_Reporte";
             this.btn_Reporte.Size = new System.Drawing.Size(139, 27);
             this.btn_Reporte.TabIndex = 9;
@@ -76,11 +63,63 @@
             this.btn_Reporte.UseVisualStyleBackColor = true;
             this.btn_Reporte.Click += new System.EventHandler(this.btn_Reporte_Click);
             // 
+            // dgvGrilla
+            // 
+            this.dgvGrilla.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvGrilla.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Codigo,
+            this.Nombre,
+            this.Personal,
+            this.Deuda,
+            this.Limite});
+            this.dgvGrilla.Location = new System.Drawing.Point(7, 33);
+            this.dgvGrilla.Name = "dgvGrilla";
+            this.dgvGrilla.Size = new System.Drawing.Size(644, 465);
+            this.dgvGrilla.TabIndex = 8;
+            // 
+            // btnListar
+            // 
+            this.btnListar.Location = new System.Drawing.Point(549, 520);
+            this.btnListar.Name = "btnListar";
+            this.btnListar.Size = new System.Drawing.Size(139, 27);
+            this.btnListar.TabIndex = 7;
+            this.btnListar.Text = "Listar";
+            this.btnListar.UseVisualStyleBackColor = true;
+            this.btnListar.Click += new System.EventHandler(this.btnListar_Click);
+            // 
+            // Codigo
+            // 
+            this.Codigo.HeaderText = "Código";
+            this.Codigo.Name = "Codigo";
+            this.Codigo.Width = 50;
+            // 
+            // Nombre
+            // 
+            this.Nombre.HeaderText = "Nombre";
+            this.Nombre.Name = "Nombre";
+            this.Nombre.Width = 200;
+            // 
+            // Personal
+            // 
+            this.Personal.HeaderText = "Personal";
+            this.Personal.Name = "Personal";
+            this.Personal.Width = 150;
+            // 
+            // Deuda
+            // 
+            this.Deuda.HeaderText = "Deuda";
+            this.Deuda.Name = "Deuda";
+            // 
+            // Limite
+            // 
+            this.Limite.HeaderText = "Límite de deuda";
+            this.Limite.Name = "Limite";
+            // 
             // frmListadoClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(523, 410);
+            this.ClientSize = new System.Drawing.Size(711, 571);
             this.Controls.Add(this.groupBox1);
             this.Name = "frmListadoClientes";
             this.Text = "frmListadoClientes";
@@ -96,5 +135,10 @@
         private System.Windows.Forms.Button btnListar;
         private System.Windows.Forms.DataGridView dgvGrilla;
         private System.Windows.Forms.Button btn_Reporte;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Codigo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Personal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Deuda;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Limite;
     }
 }
