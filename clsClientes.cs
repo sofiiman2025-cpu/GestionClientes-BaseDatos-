@@ -297,6 +297,7 @@ namespace GestionClientes_archivoCSV_
                 comando.Parameters.Clear();
                 comando.Parameters.AddWithValue("@idCliente", idCliente);
                 OleDbDataReader DR = comando.ExecuteReader();
+                idCliente = 0;
                 if (DR.HasRows)
                 {
                     while (DR.Read())
@@ -341,6 +342,47 @@ namespace GestionClientes_archivoCSV_
 
 
                 comando.ExecuteNonQuery();
+
+                conexion.Close();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+        }
+
+        public void ListarClientes(DataGridView Grilla)
+        {
+            try
+            {
+                //Hacemos la conexión a la Base de Datos
+                conexion.ConnectionString = CadenaConexion;
+                conexion.Open();
+
+                //Ejecutamos la conexión, le decimos que timpo de tabla usamos y cual tabla usamos
+                comando.Connection = conexion;
+                comando.CommandType = CommandType.TableDirect;
+                comando.CommandText = Tabla;
+
+
+                OleDbDataReader DR = comando.ExecuteReader();
+
+                Grilla.Rows.Clear();
+                clsCiudad ciu = new clsCiudad();
+                String nomCiud = null;
+
+                if (DR.HasRows)
+                {
+                    while (DR.Read())
+                    {
+                        nomCiud = ciu.Buscar(DR.GetInt32(4));
+                        Grilla.Rows.Add(DR.GetInt32(0), DR.GetString(1),nomCiud, DR.GetDecimal(2), DR.GetDecimal(3));
+
+                    }
+
+                }
+
+
 
                 conexion.Close();
             }

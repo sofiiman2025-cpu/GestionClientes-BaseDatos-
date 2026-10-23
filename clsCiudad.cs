@@ -79,6 +79,42 @@ namespace GestionClientes_archivoCSV_
                 MessageBox.Show(e.ToString());
             }
         }
-       
+
+        public String Buscar(Int32 idCiudad)
+        {
+            try
+            {
+                
+                conexion.ConnectionString = CadenaConexion;
+                conexion.Open();
+
+                comando.Connection = conexion;
+                comando.CommandType = CommandType.Text;
+
+                OleDbDataReader DR = comando.ExecuteReader();
+                String Resultado = "";
+                if (DR.HasRows)
+                {
+                    while (DR.Read())
+                    {
+                        if (DR.GetInt32(0) == idCiudad)
+                        {
+                            Resultado = DR.GetString(1);
+                        }
+
+                          
+                    }
+                }
+                
+                conexion.Close();
+
+                return Resultado;
+            }
+            catch (Exception e)
+            {
+                return e.ToString();
+            }
+            
+        }
     }
 }
