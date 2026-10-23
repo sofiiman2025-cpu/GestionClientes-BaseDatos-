@@ -32,15 +32,15 @@
             this.lblNombre = new System.Windows.Forms.Label();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.grpDatos = new System.Windows.Forms.GroupBox();
-            this.lblDeuda = new System.Windows.Forms.Label();
-            this.lblLimte = new System.Windows.Forms.Label();
-            this.lblNom = new System.Windows.Forms.Label();
             this.lblDeu = new System.Windows.Forms.Label();
+            this.lblNom = new System.Windows.Forms.Label();
+            this.lblLimite = new System.Windows.Forms.Label();
+            this.lblDeuda = new System.Windows.Forms.Label();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.btnModificar = new System.Windows.Forms.Button();
-            this.txtLim = new System.Windows.Forms.TextBox();
             this.txtCodigo = new System.Windows.Forms.TextBox();
+            this.lblLim = new System.Windows.Forms.Label();
             this.grpDatos.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -75,10 +75,10 @@
             // grpDatos
             // 
             this.grpDatos.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.grpDatos.Controls.Add(this.txtLim);
+            this.grpDatos.Controls.Add(this.lblLim);
             this.grpDatos.Controls.Add(this.lblDeu);
             this.grpDatos.Controls.Add(this.lblNom);
-            this.grpDatos.Controls.Add(this.lblLimte);
+            this.grpDatos.Controls.Add(this.lblLimite);
             this.grpDatos.Controls.Add(this.lblDeuda);
             this.grpDatos.Controls.Add(this.lblNombre);
             this.grpDatos.Location = new System.Drawing.Point(29, 122);
@@ -88,23 +88,14 @@
             this.grpDatos.TabStop = false;
             this.grpDatos.Text = "Datos del cliente";
             // 
-            // lblDeuda
+            // lblDeu
             // 
-            this.lblDeuda.AutoSize = true;
-            this.lblDeuda.Location = new System.Drawing.Point(11, 75);
-            this.lblDeuda.Name = "lblDeuda";
-            this.lblDeuda.Size = new System.Drawing.Size(39, 13);
-            this.lblDeuda.TabIndex = 2;
-            this.lblDeuda.Text = "Deuda";
-            // 
-            // lblLimte
-            // 
-            this.lblLimte.AutoSize = true;
-            this.lblLimte.Location = new System.Drawing.Point(11, 121);
-            this.lblLimte.Name = "lblLimte";
-            this.lblLimte.Size = new System.Drawing.Size(84, 13);
-            this.lblLimte.TabIndex = 3;
-            this.lblLimte.Text = "Limite de credito";
+            this.lblDeu.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.lblDeu.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblDeu.Location = new System.Drawing.Point(201, 74);
+            this.lblDeu.Name = "lblDeu";
+            this.lblDeu.Size = new System.Drawing.Size(98, 14);
+            this.lblDeu.TabIndex = 5;
             // 
             // lblNom
             // 
@@ -116,14 +107,23 @@
             this.lblNom.Size = new System.Drawing.Size(98, 15);
             this.lblNom.TabIndex = 4;
             // 
-            // lblDeu
+            // lblLimite
             // 
-            this.lblDeu.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblDeu.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblDeu.Location = new System.Drawing.Point(201, 74);
-            this.lblDeu.Name = "lblDeu";
-            this.lblDeu.Size = new System.Drawing.Size(98, 14);
-            this.lblDeu.TabIndex = 5;
+            this.lblLimite.AutoSize = true;
+            this.lblLimite.Location = new System.Drawing.Point(11, 121);
+            this.lblLimite.Name = "lblLimite";
+            this.lblLimite.Size = new System.Drawing.Size(84, 13);
+            this.lblLimite.TabIndex = 3;
+            this.lblLimite.Text = "Limite de credito";
+            // 
+            // lblDeuda
+            // 
+            this.lblDeuda.AutoSize = true;
+            this.lblDeuda.Location = new System.Drawing.Point(11, 75);
+            this.lblDeuda.Name = "lblDeuda";
+            this.lblDeuda.Size = new System.Drawing.Size(39, 13);
+            this.lblDeuda.TabIndex = 2;
+            this.lblDeuda.Text = "Deuda";
             // 
             // btnEliminar
             // 
@@ -158,20 +158,21 @@
             this.btnModificar.UseVisualStyleBackColor = true;
             this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
-            // txtLim
-            // 
-            this.txtLim.Location = new System.Drawing.Point(201, 114);
-            this.txtLim.Name = "txtLim";
-            this.txtLim.ReadOnly = true;
-            this.txtLim.Size = new System.Drawing.Size(98, 20);
-            this.txtLim.TabIndex = 6;
-            // 
             // txtCodigo
             // 
             this.txtCodigo.Location = new System.Drawing.Point(164, 32);
             this.txtCodigo.Name = "txtCodigo";
             this.txtCodigo.Size = new System.Drawing.Size(106, 20);
             this.txtCodigo.TabIndex = 8;
+            // 
+            // lblLim
+            // 
+            this.lblLim.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.lblLim.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblLim.Location = new System.Drawing.Point(201, 121);
+            this.lblLim.Name = "lblLim";
+            this.lblLim.Size = new System.Drawing.Size(98, 14);
+            this.lblLim.TabIndex = 6;
             // 
             // frmBuscar
             // 
@@ -203,12 +204,12 @@
         private System.Windows.Forms.GroupBox grpDatos;
         private System.Windows.Forms.Label lblDeu;
         private System.Windows.Forms.Label lblNom;
-        private System.Windows.Forms.Label lblLimte;
+        private System.Windows.Forms.Label lblLimite;
         private System.Windows.Forms.Label lblDeuda;
         private System.Windows.Forms.Button btnEliminar;
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.Button btnModificar;
-        private System.Windows.Forms.TextBox txtLim;
         private System.Windows.Forms.TextBox txtCodigo;
+        private System.Windows.Forms.Label lblLim;
     }
 }

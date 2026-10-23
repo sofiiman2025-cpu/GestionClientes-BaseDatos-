@@ -27,24 +27,24 @@ namespace GestionClientes_archivoCSV_
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            clsClientes cliente = new clsClientes();
+            clsClientes x = new clsClientes();
 
-            Int32 codigo = Convert.ToInt32(txtCodigo.Text);
-            cliente.Buscar(codigo);
+            Int32 cliente = Convert.ToInt32(txtCodigo.Text);
+            x.Buscar(cliente);
 
-            if (cliente.idCliente == 0)
+            if (x.idCliente != 0)
             {
-                MessageBox.Show("No se encontró el cliente con el código ingresado.", "Búsqueda de Cliente", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                lblNombre.Text = x.nombre;
+                lblDeuda.Text = x.TotalDeuda.ToString();
+                lblLim.Text = x.limite.ToString();
             }
             else
             {
-                lblNom.Text = cliente.nombre;
-                lblDeu.Text = cliente.TotalDeuda.ToString();
-                txtLim.Text = cliente.limite.ToString();
+                lblNombre.Text = "";
+                lblDeuda.Text = "";
+                lblLim.Text = "";
+                MessageBox.Show("Cliente no existente");
             }
-            btnEliminar.Enabled = true;
-            btnModificar.Enabled = true;
-
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
@@ -52,7 +52,7 @@ namespace GestionClientes_archivoCSV_
             btnEliminar.Enabled = true;
             btnModificar.Enabled = true;
             btnGuardar.Enabled = true;
-            txtLim.ReadOnly = false;
+            
 
 
         }
@@ -60,7 +60,7 @@ namespace GestionClientes_archivoCSV_
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             clsClientes cliente = new clsClientes();
-            cliente.limite = Convert.ToDecimal(txtLim.Text);
+            cliente.limite = Convert.ToDecimal(lblLim.Text);
             cliente.Modificar(Convert.ToInt32(txtCodigo.Text));
             btnGuardar.Enabled = false;
 
