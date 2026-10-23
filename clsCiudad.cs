@@ -86,37 +86,41 @@ namespace GestionClientes_archivoCSV_
         {
             try
             {
-                
+                String sql = "SELECT Nombre FROM Ciudad WHERE idCiudad = ?";
+
                 conexion.ConnectionString = CadenaConexion;
                 conexion.Open();
 
                 comando.Connection = conexion;
                 comando.CommandType = CommandType.Text;
+                comando.CommandText = sql;
+
+                comando.Parameters.Clear();
+                comando.Parameters.AddWithValue("@idCiudad", idCiudad);
 
                 OleDbDataReader DR = comando.ExecuteReader();
                 String Resultado = "";
+
                 if (DR.HasRows)
                 {
                     while (DR.Read())
                     {
-                        if (DR.GetInt32(0) == idCiudad)
-                        {
-                            Resultado = DR.GetString(1);
-                        }
-
-                          
+                        Resultado = DR.GetString(0); // Como la consulta pide solo el "Nombre", este pasa a ser la columna 0
                     }
                 }
-                
-                conexion.Close();
 
+                conexion.Close();
                 return Resultado;
             }
             catch (Exception e)
             {
-                return e.ToString();
+                // Es preferible no retornar el error como si fuera el nombre de la ciudad. 
+                // Puedes mostrarlo o retornar cadena vacía.
+                MessageBox.Show(e.ToString());
+                return "";
             }
-            
         }
+
     }
 }
+

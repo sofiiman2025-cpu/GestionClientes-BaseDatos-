@@ -72,29 +72,29 @@ namespace GestionClientes_archivoCSV_
         {
             try
             {
-                //Hacemos la conexión a la Base de Datos
                 conexion.ConnectionString = CadenaConexion;
                 conexion.Open();
 
-                //Ejecutamos la conexión, le decimos que timpo de tabla usamos y cual tabla usamos
                 comando.Connection = conexion;
                 comando.CommandType = CommandType.TableDirect;
                 comando.CommandText = Tabla;
 
-                //Adaptamos los datos de toda la tabla y se los cargamos a DS
                 adaptador = new OleDbDataAdapter(comando);
                 DataSet DS = new DataSet();
                 adaptador.Fill(DS);
 
-                //Mostramos los datos en la grilla (cargamos la grilla)
                 Grilla.DataSource = DS.Tables[0];
-
-
-                conexion.Close();
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.ToString());
+            }
+            finally
+            {
+                if (conexion.State == ConnectionState.Open)
+                {
+                    conexion.Close();
+                }
             }
         }
 
