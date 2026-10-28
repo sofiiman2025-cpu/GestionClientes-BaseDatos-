@@ -84,18 +84,14 @@ namespace GestionClientes_archivoCSV_
                 adaptador.Fill(DS);
 
                 Grilla.DataSource = DS.Tables[0];
+
+                conexion.Close();
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.ToString());
             }
-            finally
-            {
-                if (conexion.State == ConnectionState.Open)
-                {
-                    conexion.Close();
-                }
-            }
+
         }
 
         public void Listar(ComboBox Combo) //Sobrecarga de funciones (tengo dos procedimientos que se llaman iguales pero tienen comportamientos diferentes)
@@ -417,6 +413,39 @@ namespace GestionClientes_archivoCSV_
             {
                 MessageBox.Show(e.ToString());
             }
+        }
+
+        public void ListarDataSet(DataGridView Grilla)
+        {
+            try
+            {
+                conexion.ConnectionString = CadenaConexion;
+                conexion.Open();
+
+                comando.Connection = conexion;
+                comando.CommandType = CommandType.TableDirect;
+                comando.CommandText = Tabla;
+
+                adaptador = new OleDbDataAdapter(comando);
+                DataSet DS = new DataSet();
+                adaptador.Fill(DS);
+
+            if (DS.Tables.Count > 0)
+                {
+                   foreach(DataRow x in DS.Tables[Tabla].Rows)
+                    {
+                        Grilla.Rows.Add(x["idCliente"], x["Nombre"], x["Deuda"], x["Límite"], x["idCiudad"]);
+                    }
+                    
+               }
+                conexion.Close();
+            }
+           
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+
         }
     }
 }
