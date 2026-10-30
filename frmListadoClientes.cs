@@ -25,9 +25,16 @@ namespace GestionClientes_archivoCSV_
 
         private void btn_Reporte_Click(object sender, EventArgs e)
         {
+            SaveFileDialog objArchivo = new SaveFileDialog();
+            
+            objArchivo.Title = "Seleccionen carpeta y escriba el nombre del archivo";
+            objArchivo.RestoreDirectory = true; //usa el ultimo directorio 
+            objArchivo.Filter = "Archivo separado por coma. (*.csv)|*.csv| Archivo de texto (*.txt)|*.txt";
+            objArchivo.ShowDialog();
+
             clsClientes objClientes = new clsClientes();
-            objClientes.ReporteClientes();
-            MessageBox.Show("Reporte Generado Correctamente");
+            objClientes.ReporteClientesCuadroDialogo(objArchivo.FileName);
+            //MessageBox.Show("Reporte Generado Correctamente");
         }
     }
 }
